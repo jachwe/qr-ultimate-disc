@@ -24,7 +24,7 @@ var color3 = '#f60';
 
 var margin = 146;
 
-var fullWidth = 2183;
+var fullWidth = 2185;
 
 var codeWidth = Math.sqrt(Math.pow(fullWidth - margin * 2, 2) * .5);
 var blockWidth = codeWidth / codeBlocks;
@@ -34,7 +34,6 @@ var totalBlocks = fullWidth / blockWidth;
 var raster = Math.floor(fullWidth / blockWidth);
 
 var blockOriginXY = (raster - codeBlocks) / 2;
-
 
 var canvas = new Canvas(fullWidth, fullWidth);
 var ctx = canvas.getContext('2d');
@@ -53,9 +52,11 @@ var isMarker = function(x, y) {
 
 var addDot = function(x, y) {
 
+    var variance = .18;
+
     var cx = x * blockWidth + blockWidth * .5;
     var cy = y * blockWidth + blockWidth * .5;
-    var r = blockWidth * .5 - (Math.random() * .15) * blockWidth;
+    var r = blockWidth * .5 - (Math.random() * variance) * blockWidth;
     var color = Math.random() > .5 ? 'black' : 'blue';
 
     ctx.beginPath();
@@ -66,7 +67,7 @@ var addDot = function(x, y) {
 
 var textChars = [];
 var textStartAngle = -90;
-var charAngle = 4;
+var charAngle = 3.5;
 var maxChars = (360 / charAngle) - 1;
 
 var addText = function(text, bold) {
@@ -82,7 +83,6 @@ var writeText = function() {
     var radius = fullWidth / 2;
     var outer = radius - 2;
     var inner = radius - margin + margin * .5;
-    var spacing = 0.082;
     var textradius = inner + (outer - inner) * .5 - 25;
     var centerXY = fullWidth / 2;
     charAngle *= Math.PI / 180;
@@ -178,7 +178,7 @@ for (var x = 0; x < totalBlocks; x++) {
         var rightDeco = x > totalBlocks - blockOriginXY;
         var topDeco = y + 1 < blockOriginXY;
         var bottomDeco = y > totalBlocks - blockOriginXY;
-        
+
         if ((leftDeco || rightDeco || topDeco || bottomDeco) && isInCircle(x, y) && Math.random() > .5) {
             addDot(x, y);
         }
@@ -207,7 +207,7 @@ for (var i = 0; i < oCount; i++) {
     fireText += "o";
 }
 fireText += "re fire!";
-addText(fireText, color2);
+addText(fireText, color1);
 writeText();
 
 
@@ -231,8 +231,7 @@ if (argv.f == 'png') {
     var jpgfile = fs.createWriteStream( argv.t + filename + '.jpg'),
         stream = canvas.jpegStream({
             bufsize: 4096,
-            quality: 100,
-            progressive: false // true for progressive compression, default: false
+            quality: 100
         });
 
     stream.on("data", function(chunk) {
