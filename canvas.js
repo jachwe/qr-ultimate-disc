@@ -213,7 +213,7 @@ writeText();
 
 //EXPORT
 
-var filename = new Buffer(codecontent).toString('base64')
+var filename = Date.now() + "_" + new Buffer(codecontent).toString('base64')
 
 if (argv.f == 'png') {
 
