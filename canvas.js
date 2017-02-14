@@ -2,7 +2,6 @@ var Canvas = require('canvas'),
     Image = Canvas.Image,
     qr = require('qr-image'),
     fs = require('fs'),
-    sanitizer = require('sanitizer'),
     argv = require('optimist')
     .default('s', "")
     .default('c', "http://www.parkschei.be")
