@@ -6,6 +6,7 @@ var Canvas = require('canvas'),
     .default('s', "")
     .default('c', "http://www.parkschei.be")
     .default('f', 'png')
+    .default('t','./output/')
     .argv;
 
 var args = process.argv;
@@ -177,9 +178,7 @@ for (var x = 0; x < totalBlocks; x++) {
         var rightDeco = x > totalBlocks - blockOriginXY;
         var topDeco = y + 1 < blockOriginXY;
         var bottomDeco = y > totalBlocks - blockOriginXY;
-
-        var validY = y < blockOriginXY || y > blockOriginXY + codeBlocks;
-
+        
         if ((leftDeco || rightDeco || topDeco || bottomDeco) && isInCircle(x, y) && Math.random() > .5) {
             addDot(x, y);
         }
@@ -191,10 +190,6 @@ for (var x = 0; x < totalBlocks; x++) {
 addMarker(blockOriginXY, blockOriginXY);
 addMarker(blockOriginXY, blockOriginXY + codeBlocks - markerWidth);
 addMarker(blockOriginXY + codeBlocks - markerWidth, blockOriginXY);
-
-
-
-
 
 
 //TEXT
@@ -216,30 +211,6 @@ addText(fireText, color2);
 writeText();
 
 
-// BARCODE
-
-// var end = -223 * Math.PI / 180;
-// angle += 88 * Math.PI / 180;
-
-// for (var rad = end; rad < angle; rad += 1 * Math.PI / 180) {
-
-//     if (Math.random() < .25) {
-//         continue;
-//     }
-
-//     var x1 = radius + Math.sin(rad) * inner;
-//     var x2 = radius + Math.sin(rad) * outer;
-//     var y1 = radius + Math.cos(rad) * inner;
-//     var y2 = radius + Math.cos(rad) * outer;
-
-//     ctx.beginPath();
-//     ctx.moveTo(x1, y1);
-//     ctx.lineTo(x2, y2);
-//     ctx.lineWidth = Math.random() > .5 ? 6 : 3;
-//     ctx.stroke();
-
-// }
-
 //EXPORT
 
 var filename = new Buffer(codecontent).toString('base64')
@@ -247,7 +218,7 @@ var filename = new Buffer(codecontent).toString('base64')
 if (argv.f == 'png') {
 
 
-    var pngfile = fs.createWriteStream(filename + ".png"),
+    var pngfile = fs.createWriteStream( argv.t + filename + ".png"),
         stream = canvas.pngStream();
 
     stream.on("data", function(chunk) {
@@ -257,7 +228,7 @@ if (argv.f == 'png') {
         console.log("saved png");
     });
 } else if (argv.f == 'jpg') {
-    var jpgfile = fs.createWriteStream(filename + '.jpg'),
+    var jpgfile = fs.createWriteStream( argv.t + filename + '.jpg'),
         stream = canvas.jpegStream({
             bufsize: 4096,
             quality: 100,
