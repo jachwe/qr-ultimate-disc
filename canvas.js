@@ -197,7 +197,7 @@ var textStartAngle = (customText.length / 2) * charAngle - 45;
 var textChars = [];
 
 
-var maxChars = (360 / charAngle) - 1;
+var maxChars = (360 / charAngle);
 
 
 
