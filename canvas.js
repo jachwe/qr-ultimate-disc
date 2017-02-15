@@ -6,7 +6,8 @@ var Canvas = require('canvas'),
     .default('s', "")
     .default('c', "http://www.parkschei.be")
     .default('f', 'png')
-    .default('t','./output/')
+    .default('t', './output/')
+    .default('color', 'blue')
     .argv;
 
 var args = process.argv;
@@ -18,9 +19,7 @@ var codeBlocks = code.length;
 var markerWidth = 7;
 
 var color1 = 'black';
-var color2 = 'blue';
-var color3 = '#f60';
-
+var color2 = argv.color;
 
 var margin = 146;
 
@@ -57,7 +56,7 @@ var addDot = function(x, y) {
     var cx = x * blockWidth + blockWidth * .5;
     var cy = y * blockWidth + blockWidth * .5;
     var r = blockWidth * .5 - (Math.random() * variance) * blockWidth;
-    var color = Math.random() > .5 ? 'black' : 'blue';
+    var color = Math.random() > .5 ? color1 : color2;
 
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, 2 * Math.PI, false);
@@ -65,10 +64,6 @@ var addDot = function(x, y) {
     ctx.fill();
 }
 
-var textChars = [];
-var textStartAngle = -90;
-var charAngle = 3.5;
-var maxChars = (360 / charAngle) - 1;
 
 var addText = function(text, bold) {
     var idx = 0;
@@ -134,7 +129,7 @@ var addMarker = function(x, y) {
 
     ctx.beginPath();
     ctx.rect(x, y, blockWidth * markerWidth, blockWidth * markerWidth);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = color1;
     ctx.fill();
 
     if (argv.f == 'jpg') {
@@ -143,11 +138,11 @@ var addMarker = function(x, y) {
     } else {
         ctx.clearRect(x + blockWidth, y + blockWidth, size, size);
     }
-    
+
 
     ctx.beginPath();
     ctx.rect(x + blockWidth * 2, y + blockWidth * 2, blockWidth * 3, blockWidth * 3);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = color1;
     ctx.fill();
 }
 
@@ -194,19 +189,24 @@ addMarker(blockOriginXY + codeBlocks - markerWidth, blockOriginXY);
 
 //TEXT
 
+var textChars = [];
+var textStartAngle = 0;
+var charAngle = 3.5;
+var maxChars = (360 / charAngle) - 1;
+
 var customText = argv.s.length > 0 ? argv.s + " " : "";
 
-addText("Parkscheibe ", color3);
-addText("Berlin ", color2);
+addText(customText, color2);
+addText("Parkscheibe ", color1);
+addText("Berlin ", color1);
 addText("Kreuzberg ", color1);
-addText("Ultimate ", color2);
-addText(customText, color3);
+addText("Ultimate ", color1);
 var oCount = maxChars - textChars.length - 9;
 var fireText = "m";
 for (var i = 0; i < oCount; i++) {
     fireText += "o";
 }
-fireText += "re fire!";
+fireText += "re fire";
 addText(fireText, color1);
 writeText();
 
@@ -218,17 +218,17 @@ var filename = Date.now() + "_" + new Buffer(codecontent).toString('base64')
 if (argv.f == 'png') {
 
 
-    var pngfile = fs.createWriteStream( argv.t + filename + ".png"),
+    var pngfile = fs.createWriteStream(argv.t + filename + ".png"),
         stream = canvas.pngStream();
 
     stream.on("data", function(chunk) {
         pngfile.write(chunk);
     });
     stream.on("end", function() {
-        console.log("saved png");
+        console.log("saved " + filename);
     });
 } else if (argv.f == 'jpg') {
-    var jpgfile = fs.createWriteStream( argv.t + filename + '.jpg'),
+    var jpgfile = fs.createWriteStream(argv.t + filename + '.jpg'),
         stream = canvas.jpegStream({
             bufsize: 4096,
             quality: 100
@@ -238,6 +238,6 @@ if (argv.f == 'png') {
         jpgfile.write(chunk);
     });
     stream.on("end", function() {
-        console.log("saved jpg");
+        console.log("saved " + filename);
     });
 }
