@@ -7,7 +7,7 @@ var Canvas = require('canvas'),
     .default('c', "http://www.parkschei.be")
     .default('f', 'png')
     .default('t', './output/')
-    .default('color', 'blue')
+    .default('color', '#2980b9')
     .argv;
 
 var args = process.argv;
