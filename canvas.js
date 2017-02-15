@@ -189,12 +189,17 @@ addMarker(blockOriginXY + codeBlocks - markerWidth, blockOriginXY);
 
 //TEXT
 
-var textChars = [];
-var textStartAngle = 0;
+var customText = argv.s.length > 0 ? argv.s + " " : "";
 var charAngle = 3.5;
+
+var textStartAngle = (customText.length / 2) * charAngle - 45;
+
+var textChars = [];
+
+
 var maxChars = (360 / charAngle) - 1;
 
-var customText = argv.s.length > 0 ? argv.s + " " : "";
+
 
 addText(customText, color2);
 addText("Parkscheibe ", color1);
