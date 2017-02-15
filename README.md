@@ -18,4 +18,3 @@ Run the canvas.js with node. (*node canvas [-tscf]*)
 * -f Sets the format. Can be *png* or *jpg*. Defaults to *png*.
 * -t Specifies the output folder. Defaults to *./output*
 * --color Specifies the secondary color. Defaults to #2980b9
-
