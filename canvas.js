@@ -192,7 +192,10 @@ addMarker(blockOriginXY + codeBlocks - markerWidth, blockOriginXY);
 
 //TEXT
 
-var customText = argv.s.length > 0 ? argv.s + " " : "";
+var customText = argv.s.length > 0 ? argv.s : "";
+customText = customText.substring(0,50);
+customText+=" ";
+
 var charAngle = 3.5;
 
 var textStartAngle = (customText.length / 2) * charAngle - 45;
