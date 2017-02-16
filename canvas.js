@@ -17,7 +17,7 @@ var args = process.argv;
 
 var codecontent = argv.c;
 
-var code = qr.matrix(codecontent, 'H');
+var code = qr.matrix(codecontent, 'L');
 var codeBlocks = code.length;
 var markerWidth = 7;
 
@@ -85,7 +85,7 @@ var writeText = function() {
     var centerXY = fullWidth / 2;
     charAngle *= Math.PI / 180;
 
-    var font = (outer - inner) * 1.4 + 'px BPDots';
+    var font = (outer - inner) * 1.3 + 'px BPDots';
 
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'left';
@@ -119,6 +119,9 @@ var isInCircle = function(x, y) {
 
     x *= blockWidth;
     y *= blockWidth;
+
+    x += blockWidth * .5;
+    y += blockWidth * .5;
 
     return Math.sqrt(Math.pow(x - fullWidth / 2, 2) + Math.pow(y - fullWidth / 2, 2)) < fullWidth / 2 - margin;
 }
@@ -224,7 +227,8 @@ writeText();
 
 //EXPORT
 
-var filename = Date.now() + "_" + new Buffer(codecontent).toString('base64')
+var filename = Date.now() + "_" + new Buffer(codecontent).toString('base64').substring(0, 12);
+
 
 if (argv.f == 'png') {
 
