@@ -3,10 +3,13 @@ var Canvas = require('canvas'),
     qr = require('qr-image'),
     fs = require('fs'),
     argv = require('optimist')
+    .string('s')
     .default('s', "")
+    .string('c')
     .default('c', "http://www.parkschei.be")
     .default('f', 'png')
     .default('t', './output/')
+    .string('color')
     .default('color', '#2980b9')
     .argv;
 
