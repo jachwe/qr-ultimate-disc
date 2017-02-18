@@ -15,14 +15,22 @@ var Canvas = require('canvas'),
 
 var args = process.argv;
 
+var colors = {
+    yellow  : "#DA7100",
+    red     : "#5B0A0E",
+    blue    : "#2980b9" 
+}
+
+var color1 = 'black';
+var color2 = colors[argv.color] || argv.color;
+
 var codecontent = argv.c;
 
 var code = qr.matrix(codecontent, 'L');
 var codeBlocks = code.length;
 var markerWidth = 7;
 
-var color1 = 'black';
-var color2 = argv.color;
+
 
 var margin = 146;
 
