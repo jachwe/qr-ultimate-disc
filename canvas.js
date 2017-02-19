@@ -7,7 +7,7 @@ var Canvas = require('canvas'),
     .default('s', "")
     .string('c')
     .default('c', "http://www.parkschei.be")
-    .default('f', 'png')
+    .default('f', 'jpg')
     .default('t', './output/')
     .string('color')
     .default('color', '#2980b9')
@@ -25,6 +25,10 @@ var color1 = 'black';
 var color2 = colors[argv.color] || argv.color;
 
 var codecontent = argv.c;
+
+while(codecontent.length < 80){
+    codecontent += " ";
+}
 
 var code = qr.matrix(codecontent, 'L');
 var codeBlocks = code.length;
