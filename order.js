@@ -37,6 +37,7 @@ for (var i = 1; i < records.length; i++) {
 
     cmd += ' -t "' + argv.o + '"';
     cmd += ' --color "' + r.color + '"';
+    cmd += ' -f pdf';
 
     for (var x = 0; x < r.count; x++) {
         childProcess.execSync(cmd);

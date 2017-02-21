@@ -16,9 +16,9 @@ var Canvas = require('canvas'),
 var args = process.argv;
 
 var colors = {
-    yellow  : "#DA7100",
-    red     : "#5B0A0E",
-    blue    : "#2980b9" 
+    yellow: "#DA7100",
+    red: "#7E0B27",
+    blue: "#2980b9"
 }
 
 var color1 = 'black';
@@ -26,7 +26,7 @@ var color2 = colors[argv.color] || argv.color;
 
 var codecontent = argv.c;
 
-while(codecontent.length < 80){
+while (codecontent.length < 80) {
     codecontent += " ";
 }
 
@@ -49,7 +49,7 @@ var raster = Math.floor(fullWidth / blockWidth);
 
 var blockOriginXY = (raster - codeBlocks) / 2;
 
-var canvas = new Canvas(fullWidth, fullWidth);
+var canvas = argv.f == "pdf" ? new Canvas(fullWidth, fullWidth, 'pdf') : new Canvas(fullWidth, fullWidth);
 var ctx = canvas.getContext('2d');
 
 var isMarker = function(x, y) {
@@ -110,7 +110,9 @@ var writeText = function() {
     for (var idx = 0; idx < textChars.length; idx++) {
         var character = textChars[idx][0];
         var col = textChars[idx][1] || color1;
-        character = character.toUpperCase();
+        if (character != "ß") {
+            character = character.toUpperCase();
+        }
 
         ctx.save();
         ctx.beginPath();
@@ -150,7 +152,7 @@ var addMarker = function(x, y) {
     ctx.fillStyle = color1;
     ctx.fill();
 
-    if (argv.f == 'jpg') {
+    if (argv.f == 'jpg' || argv.f == 'pdf' ) {
         ctx.fillStyle = "white";
         ctx.fillRect(x + blockWidth, y + blockWidth, size, size);
     } else {
@@ -208,8 +210,8 @@ addMarker(blockOriginXY + codeBlocks - markerWidth, blockOriginXY);
 //TEXT
 
 var customText = argv.s.length > 0 ? argv.s : "";
-customText = customText.substring(0,50);
-customText+=" ";
+customText = customText.substring(0, 50);
+customText += " ";
 
 var charAngle = 3.5;
 
@@ -267,4 +269,9 @@ if (argv.f == 'png') {
     stream.on("end", function() {
         console.log("saved " + filename);
     });
+} else if (argv.f == 'pdf') {
+
+    fs.writeFile( argv.t + filename + '.pdf', canvas.toBuffer(), function(){
+        console.log("saved " + filename);
+    } );
 }
