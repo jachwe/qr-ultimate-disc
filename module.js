@@ -256,7 +256,6 @@ function qrdisc() {
         var maxChars = perimeter / (charWidth * 1.1);
         var charAngle = (360 / maxChars) * Math.PI / 180;
         var customTextLength = customText.length;
-        console.log(customTextLength)
         var textStartAngle = (customTextLength * charAngle) * .5;
 
         var angle = textStartAngle - 45 * Math.PI / 180;
