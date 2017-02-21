@@ -2,16 +2,18 @@
   "name": "parkscheibe-qr",
   "version": "1.0.0",
   "description": "QR Disc Generator",
-  "main": "canvas.js",
+  "main": "module.js",
   "dependencies": {
     "canvas": "^1.6.2",
     "csv-parse": "^1.2.0",
+    "deasync": "^0.1.9",
+    "mkdirp": "^0.5.1",
     "open": "^0.0.5",
     "optimist": "^0.6.1",
     "qr-image": "^3.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Jewe Pasch",
   "license": "MIT",
