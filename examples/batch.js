@@ -1,6 +1,6 @@
 var parse = require('csv-parse/lib/sync'),
     fs = require('fs'),
-    QRDisc = require('./module.js'),
+    QRDisc = require('../module.js'),
     argv = require('optimist')
     .demand(['i'])
     .default('o', './output')

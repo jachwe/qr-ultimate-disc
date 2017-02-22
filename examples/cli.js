@@ -1,4 +1,4 @@
-var QRDisc = require('./module.js'),
+var QRDisc = require('../module.js'),
     argv = require('optimist')
     .string('s')
     .default('s', "")
