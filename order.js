@@ -14,6 +14,8 @@ var records = parse(input, {
     relax_column_count: true
 });
 var c = 0;
+var time = Date.now();
+var total = 0;
 
 for (var i = 1; i < records.length; i++) {
     var r = records[i];
@@ -39,8 +41,14 @@ for (var i = 1; i < records.length; i++) {
         disc.target = argv.o;
 
         disc.makeSync();
+        var now = Date.now();
+        var delta = now - time;
+        total += delta;
+        time = now;
 
-        console.log("saved #" + (++c));
+        console.log("saved #" + (++c) + " in " + delta + "ms");
     }
 
 }
+
+console.log("\nJob finsished in "+ total +"ms");

@@ -8,14 +8,14 @@ var QRDisc = require('./module.js'),
     .default('out', './output/')
     .string('color')
     .default('color', 'blue')
-    .default('size', 524)
+    .default('size', 524.409448818897638)
     .argv;
 
 var disc = new QRDisc();
 disc.text = argv.s;
 disc.code = argv.c;
 disc.color = argv.color;
-disc.size = parseInt(argv.size,10);
+disc.size = argv.size;
 disc.format = argv.f;
 disc.target = argv.out
 

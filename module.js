@@ -99,10 +99,10 @@ function qrdisc() {
 
         var markerWidth = 7;
         var fullWidth = this.size;
-        var margin = fullWidth * .035;
+        var margin = fullWidth * .04;
 
         var radius = fullWidth / 2;
-        var outer = radius - fullWidth / 2000;
+        var outer = radius - fullWidth / 1750;
         var textradius = outer - margin;
         var inner = textradius - margin * .75;
         var centerXY = fullWidth / 2;
@@ -243,7 +243,7 @@ function qrdisc() {
         addText(customText, color2);
         addText(" Parkscheibe Berlin Kreuzberg Ultimate ", color1);
 
-        var fontSize = (outer - textradius) * 1.2;
+        var fontSize = (outer - textradius);
         var font = fontSize + 'px BPDots';
 
         ctx.textBaseline = 'alphabetic';
