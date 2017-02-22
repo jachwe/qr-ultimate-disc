@@ -1,5 +1,5 @@
 {
-  "name": "parkscheibe-qr",
+  "name": "qr-disc",
   "version": "1.0.0",
   "description": "QR Disc Generator",
   "main": "module.js",
