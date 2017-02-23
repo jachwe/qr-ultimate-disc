@@ -174,22 +174,14 @@ function qrdisc() {
             var size = (markerWidth - 2) * blockWidth;
 
             ctx.beginPath();
-            ctx.rect(x, y, blockWidth * markerWidth, blockWidth * markerWidth);
-            ctx.fillStyle = color1;
-            ctx.fill();
-
-            if (format == 'jpg' || format == 'pdf') {
-                ctx.fillStyle = "white";
-                ctx.fillRect(x + blockWidth, y + blockWidth, size, size);
-            } else {
-                ctx.clearRect(x + blockWidth, y + blockWidth, size, size);
-            }
-
-
-            ctx.beginPath();
+            ctx.rect(x, y, blockWidth * markerWidth, blockWidth);
+            ctx.rect(x, y, blockWidth, blockWidth * markerWidth);
+            ctx.rect(x, y + blockWidth * (markerWidth - 1), blockWidth * markerWidth, blockWidth);
+            ctx.rect(x + blockWidth * (markerWidth - 1), y, blockWidth, blockWidth * markerWidth);
             ctx.rect(x + blockWidth * 2, y + blockWidth * 2, blockWidth * 3, blockWidth * 3);
             ctx.fillStyle = color1;
             ctx.fill();
+
         }
 
         if (this.format == 'jpg') {
@@ -239,7 +231,7 @@ function qrdisc() {
         //TEXT
 
         var textChars = [];
-        var customText = this.text.substring(0,50);
+        var customText = this.text.substring(0, 50);
         addText(customText, color2);
         addText(" Parkscheibe Berlin Kreuzberg Ultimate ", color1);
 
