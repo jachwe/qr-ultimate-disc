@@ -260,7 +260,7 @@ function qrdisc() {
 
         var angle = textStartAngle - 45 * Math.PI / 180;
 
-        var oCount = maxChars - textChars.length - 10;
+        var oCount = maxChars - textChars.length - 9;
 
         var fireText = "m";
         for (var i = 0; i < oCount; i++) {

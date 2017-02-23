@@ -29,8 +29,8 @@ for (var i = 1; i < records.length; i++) {
     r.color = r.color.replace("Schwarz-Blau", "blue");
 
     var color = r.color;
-    var text = r.text;
-    var code = r.code;
+    var text = r.text.length > 0 ? r.text : 'http://www.parkschei.be';
+    var code = r.code.length > 0 ? r.code : 'http://www.parkschei.be';
 
     for (var x = 0; x < r.count; x++) {
         var disc = new QRDisc();
