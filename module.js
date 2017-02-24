@@ -125,7 +125,7 @@ function qrdisc() {
 
         var totalBlocks = fullWidth / blockWidth;
 
-        var raster = Math.floor(fullWidth / blockWidth);
+        var raster = fullWidth / blockWidth;
         var blockOriginXY = (raster - codeBlocks) / 2;
 
         var format = this.format;
@@ -208,19 +208,59 @@ function qrdisc() {
 
         //DECO
 
-        for (var x = 0; x < totalBlocks; x++) {
-            for (var y = 0; y < totalBlocks; y++) {
+            //LEFT
 
-                var leftDeco = x + 1 < blockOriginXY;
-                var rightDeco = x > totalBlocks - blockOriginXY;
-                var topDeco = y + 1 < blockOriginXY;
-                var bottomDeco = y > totalBlocks - blockOriginXY;
-
-                if ((leftDeco || rightDeco || topDeco || bottomDeco) && isInCircle(x, y) && Math.random() > .5) {
+        for( var x = blockOriginXY - 2; x >= 0; x-- ){
+            for (var y = 0; y < raster; y++){
+               if(isInCircle(x, y) && Math.random() > .5) {
                     addDot(x, y);
-                }
+               }
             }
         }
+
+            //Right
+
+        for( var x = blockOriginXY + codeBlocks + 1; x <= raster; x++ ){
+            for (var y = 0; y < fullWidth; y++){
+               if(isInCircle(x, y) && Math.random() > .5) {
+                    addDot(x, y);
+               }
+            }
+        }
+
+             //TOP
+
+        for( var x = 0; x <= raster; x++ ){
+            for (var y = blockOriginXY - 2; y >=0; y--){
+               if(isInCircle(x, y) && Math.random() > .5) {
+                    addDot(x, y);
+               }
+            }
+        }
+
+             //Bottom
+
+        for( var x = 0; x <= raster; x++ ){
+            for (var y = blockOriginXY + codeBlocks + 1; y <= raster; y++){
+               if(isInCircle(x, y) && Math.random() > .5) {
+                    addDot(x, y);
+               }
+            }
+        }
+
+        // for (var x = 0; x < totalBlocks; x++) {
+        //     for (var y = 0; y < totalBlocks; y++) {
+
+        //         var leftDeco = x + 1 < blockOriginXY;
+        //         var rightDeco = x - 1 > totalBlocks - blockOriginXY;
+        //         var topDeco = y + 1 < blockOriginXY;
+        //         var bottomDeco = y - 1 > totalBlocks - blockOriginXY;
+
+        //         if ((leftDeco || rightDeco || topDeco || bottomDeco) && isInCircle(x, y) && Math.random() > .5) {
+        //             addDot(x, y);
+        //         }
+        //     }
+        // }
 
         //MARKER
 

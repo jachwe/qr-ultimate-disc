@@ -17,11 +17,20 @@ var c = 0;
 var time = Date.now();
 var total = 0;
 
+var invoice = {};
+
 for (var i = 1; i < records.length; i++) {
     var r = records[i];
 
     if (r.color.length < 1) {
         r.color = blue;
+    }
+
+    if( !invoice[r.email] ){
+        invoice[r.email] = {};
+        invoice[r.email].name = r.name;
+        invoice[r.email].total = 0;
+        invoice[r.email].discount = 0;
     }
 
     r.color = r.color.replace("Schwarz-Gelb", "yellow");
@@ -46,9 +55,26 @@ for (var i = 1; i < records.length; i++) {
         total += delta;
         time = now;
 
+        invoice[r.email].total++;
+        if( r.time.substring(0,2) <= 19 ){
+            invoice[r.email].discount++;
+        }
+
         console.log("saved #" + (++c) + " in " + delta + "ms");
     }
 
 }
 
 console.log("\nJob finsished in "+ total +"ms");
+
+var invtext = "";
+var mails = Object.keys(invoice);
+for( var i = 0; i < mails.length; i++ ){
+    var mail = mails[i];
+    var row = invoice[mail];
+    var fullPrice = row.total - row.discount;
+    var pay = fullPrice * 10 + row.discount * 8;
+    invtext += mail + "," + row.name + "," + fullPrice + "," + row.discount + "," + row.total + "," + pay +"\n";
+}
+
+fs.writeFileSync(argv.o + "/summary.csv",invtext)
