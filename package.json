@@ -5,7 +5,7 @@
   "main": "module.js",
   "dependencies": {
     "canvas": "^1.6.2",
-    "csv-parse": "^1.2.0",
+    "csv-parse": "^4.6.5",
     "deasync": "^0.1.9",
     "mkdirp": "^0.5.1",
     "open": "^0.0.5",
